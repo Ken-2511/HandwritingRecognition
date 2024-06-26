@@ -1,0 +1,14 @@
+6 / 20：
+任务：
+1. 将所有文件存储成.pt 文件：ken deadline: Tomorrow
+    （1）手写段落图片：转成tensor再存入pt [done]
+    （2）手写单词图片：转成tensor再存入pt [done]
+    （3）label：转成list再存入pt（包含了每个单词的信息） [done]
+2. 编写dataset, dataloader（ken & Roger）deadline: Tomorrow [done] (dataloader 真的就一行代码的事，训练的时候再写)
+3. 准备网络框架：
+    （1）segementation：给定一张手写段落识别，识别单词位置（训练框单词能力）-> Already done
+    （2）recognition：给定一张单词图片，识别单词 （CRNN）ken -> 7/1
+4. 数据增广（从剩下两个数据集）：Richard -> 100G 7/4
+5. Baseline model: 
+    （1）根据连续像素确认框选位置 Lou -> 7/4
+    （2）SVM Roger -> 7/2

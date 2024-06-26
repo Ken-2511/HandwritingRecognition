@@ -1,0 +1,81 @@
+6.15
+richard：
+解压了CVL数据集到这里：/root/autodl-tmp/APS360_Project/Data_Preprocessing/cvl-database-1-1，但还没有开始处理数据
+写了一点点 part2.ipynb (这是一个记事本文件，就像我们lab里的文件一样)
+然后他发现没有选择内核的选项，试了好多次都没有用，然后就没有然后了。。。
+ken建议他重装一下vscode
+
+ken：
+解压了IAM数据集到这里：/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed
+写了一点点 part1_test.ipynb
+
+ken和richard讨论了一下，我们最近的目标就是写datasets的类，另外关于segmentation的数据集，输入图片大小暂定为1024x1024px
+
+
+6.16
+ken：
+将APS360_Project文件夹里的所有文件都移到了/root/autodl-tmp/APS360_Project里，所以之前写的一些路径可能需要做调整
+继续写 part1_test.ipynb
+
+把IAM的所有手写段落的图片都处理好了，保存到了/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed这里
+其中images是图片，word_info_lists是包含图片里的单词信息的list[WordInfo]。具体参见part1_test.ipynb
+
+richard:
+目前成功导出图像数据，并切转换成灰度图像，但是在处理xml参数文件的时候遇到了很大的问题，这个xml文件的BOM貌似损坏，尝试了UTF-16，utf-16，
+以及其他的encoding，但是都没有成功，同时尝试了两种不同的xml解析方法，对于parase以及estree.fromstring 两种方法都尝试过结果都以失败告终。
+
+同时我已经创建好保存框架（包括文件的创建以及自动保存路径以及写入）以及dataprocessed文件夹，其中images用于存储处理好后的图像，xml用于存储原本预定的转换后的编码的xml文件，但是目前情况
+不如预期效果，等明天在接着尝试，明天会和ken商讨如果xml文件真的存在损坏，我们需要尝试寻找新的办法来crop图像。
+
+
+6.17
+michael:
+把IAM的所有手写段落的图片中的单词进行处理，将剪切后的单独的单词的图片读出到IAM_Processed/cropped_words中
+
+发现单词识别框存在bug，详见part1.ipynb.
+
+ken: ↑已解决
+
+
+6.18
+ken:
+
+今天ken临时变卦，说让roger只做CVL数据集，不做IAM数据集了，因为ken不小心做好了（尴尬
+
+把 WordInfo 这个类放进了一个单独的文件，这样以后我们可以方便地在不同的文件里引用这个类
+
+解析了一下CVL数据集的xml文件，了解了这个文件的结构。详见 part2.ipynb
+
+新建了一个叫train的文件夹，用于训练，并初步了解了Faster R-CNN网络的功能
+（顺便一提这个 Faster R-CNN 全称是 Faster Region-based Convolutional Neural Networks，是一种用于目标检测的深度学习网络）
+
+Richard:
+今天解决了CVL第一个dataset的图像裁剪问题并成功保存到了CVL_Processed，并且搞定了打包参数的实例化对象部分，明天将解决保存参数文件以及调试实例化过程。
+
+
+6.22
+ken:
+
+今天做了很多事情：
+1. 
+新写了一个记事本：/root/autodl-tmp/APS360_Project/Data_Preprocessing/ultimate.ipynb
+将之前在 `xxx_Processed/` 文件夹里的散着的数据整理了起来，保存成了整的（而不是散的）文件，分别保存在了IAM和CVL的processed文件夹下。
+    文件夹1： /root/autodl-tmp/APS360_Project/Datasets/CVL_Processed
+    文件夹2： /root/autodl-tmp/APS360_Project/Datasets/IAM_Processed
+    这两个文件夹里面都有如下文件：
+    rec_data.pt       rec_data_train.pt  rec_label.pt       rec_label_train.pt  seg_data.pt       seg_data_train.pt  seg_label.pt       seg_label_train.pt
+    rec_data_test.pt  rec_data_val.pt    rec_label_test.pt  rec_label_val.pt    seg_data_test.pt  seg_data_val.pt    seg_label_test.pt  seg_label_val.pt
+    这些文件都是用来训练的数据，分别是训练集、验证集和测试集的数据和标签。
+    这样保存的话数据加载起来就会很快
+2.
+删掉了之前的 IAM_Dataset.py 和 CVL_Dataset.py，新建了一个叫 utils.py 的文件，里面放了dataset类。
+3.
+在ultimate.ipynb里面写了一些代码，用来测试（可视化）这些数据集的数据是否是正确的，发现并修复了之前代码的一些bug
+真的，很好玩。详见 ultimate.ipynb 的最后四个cells，很有趣的！快去试试！
+
+
+6.26
+
+ken:
+今天把文件上传到GitHub上了，地址：github.com/Ken-2511/HandwritingRecognition
+还没写README文件

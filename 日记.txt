@@ -78,4 +78,5 @@ ken:
 
 ken:
 今天把文件上传到GitHub上了，地址：github.com/Ken-2511/HandwritingRecognition
+note这个是通过Gitee上传到GitHub的，Gitee也有对应的地址：gitee.com/IWMAIN/HandwritingRecognition
 还没写README文件

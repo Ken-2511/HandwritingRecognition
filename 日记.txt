@@ -79,4 +79,5 @@ ken:
 ken:
 今天把文件上传到GitHub上了，地址：github.com/Ken-2511/HandwritingRecognition
 note这个是通过Gitee上传到GitHub的，Gitee也有对应的地址：gitee.com/IWMAIN/HandwritingRecognition
+发现每次上传文件都要输入用户名和密码，很麻烦，所以在Gitee上设置了SSH key，这样就不用输入用户名和密码了
 还没写README文件

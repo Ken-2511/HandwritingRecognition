@@ -10,5 +10,5 @@
     （2）recognition：给定一张单词图片，识别单词 （CRNN）ken -> 7/1
 4. 数据增广（从剩下两个数据集）：Richard -> 100G 7/4
 5. Baseline model: 
-    （1）根据连续像素确认框选位置 Lou -> 7/4
+    （1）根据连续像素确认框选位置 Lou -> 7/4 [done]
     （2）SVM Roger -> 7/2

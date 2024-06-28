@@ -81,3 +81,13 @@ ken:
 note这个是通过Gitee上传到GitHub的，Gitee也有对应的地址：gitee.com/IWMAIN/HandwritingRecognition
 发现每次上传文件都要输入用户名和密码，很麻烦，所以在Gitee上设置了SSH key，这样就不用输入用户名和密码了
 还没写README文件
+
+michael:
+
+把Baseline Model的根据连续像素确认框选位置做好了。 文件在baseline model文件夹里。
+数据在machine learning output --> binary_image_bounding_box 和 output 文件夹里。
+
+发现IAM数据集效果很差，单词几乎识别不出来
+CVL数据集效果还行，但是有时候会把一个单词分成好几个框
+
+加上离谱的代码量这个东西是真逆天

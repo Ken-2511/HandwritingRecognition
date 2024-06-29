@@ -12,3 +12,20 @@
 5. Baseline model: 
     （1）根据连续像素确认框选位置 Lou -> 7/4 [done]
     （2）SVM Roger -> 7/2
+
+6 / 28
+任务：
+前置任务：
+1. 分一下 Train & Validation & Test [done]
+2. CRNN -> Ken [primary]
+3. SVM -> Roger [baseline]
+4. 数据增广 -> Richard [Data Processing]
+
+Progress report:
+5. Projec Description -> Richard
+6. Individual Contribution and REsponsibilities
+    (1) Gantt chart -> Ken
+    (2) Description -> Richard
+7. Data Processing Description -> Richard
+8. Baseline model Description -> Roger & Lou
+9. Primary Model Description -> Ken

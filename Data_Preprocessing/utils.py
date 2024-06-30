@@ -13,6 +13,7 @@ class SegDataset(Dataset):
         """
         CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
         IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
+        self.name = name
         if name == 'IAM':
             self.path = IAM_path
         elif name == 'CVL':

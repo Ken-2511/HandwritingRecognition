@@ -1,7 +1,6 @@
 Datasets/
 Machine_Learning_Output/
-/root/autodl-tmp/APS360_Project/"Baseline Model"/SVM/CVL_dataset_png/
-/root/autodl-tmp/APS360_Project/"Baseline Model"/SVM/CVL_HOG_pt/
-/root/autodl-tmp/APS360_Project/"Baseline Model"/SVM/IAM_dataset_png/
-/root/autodl-tmp/APS360_Project/"Baseline Model"/SVM/IAM_HOG_pt/
-/root/autodl-tmp/APS360_Project/
+Baseline Model/SVM/CVL_dataset_png/
+Baseline Model/SVM/CVL_HOG_pt/
+Baseline Model/SVM/IAM_dataset_png/
+Baseline Model/SVM/IAM_HOG_pt/

@@ -23,9 +23,12 @@
 
 Progress report:
 5. Projec Description -> Richard
-6. Individual Contribution and REsponsibilities
+6. Individual Contribution and Responsibilities
     (1) Gantt chart -> Ken
-    (2) Description -> Richard
+    (2) Description -> Lou
 7. Data Processing Description -> Richard
 8. Baseline model Description -> Roger & Lou
 9. Primary Model Description -> Ken
+
+6 / 30:
+Lou：把框选出的单词单独保存出来

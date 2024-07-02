@@ -25,10 +25,11 @@ def convert_png_to_hog_tensor(png_directory, output_pt_file):
 
     # 将 HOG 特征转换为张量
     hog_tensor = torch.tensor(hog_features)
+    print(hog_tensor.shape)
     
     # 保存张量为 .pt 文件
-    torch.save(hog_tensor, output_pt_file)
-    print(f'Successfully saved HOG features to {output_pt_file}')
+    # torch.save(hog_tensor, output_pt_file)
+    # print(f'Successfully saved HOG features to {output_pt_file}')
 
 # 定义输入和输出目录
 png_directory_CVL = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/CVL_dataset_png'

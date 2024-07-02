@@ -87,18 +87,19 @@ total_indices_IAM = []
 for word in total_word_CVL:
     if word in indexed_list_CVL:
         total_indices_CVL.append(indexed_list_CVL[word])
+print(total_indices_CVL)
 
-#将序号列表存为csv文件
-with open('CVL_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(total_indices_CVL)
+# #将序号列表存为csv文件
+# with open('CVL_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
+#     writer = csv.writer(csvfile)
+#     writer.writerow(total_indices_CVL)
 
 
-for word in total_word_IAM:
-    if word in indexed_list_IAM:
-        total_indices_IAM.append(indexed_list_IAM[word])
+# for word in total_word_IAM:
+#     if word in indexed_list_IAM:
+#         total_indices_IAM.append(indexed_list_IAM[word])
 
-#将序号列表存为csv文件
-with open('IAM_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(total_indices_IAM)
+# #将序号列表存为csv文件
+# with open('IAM_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
+#     writer = csv.writer(csvfile)
+#     writer.writerow(total_indices_IAM)

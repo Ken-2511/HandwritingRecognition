@@ -46,18 +46,22 @@ pt_directory_IAM = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
 
 result_CVL = count_word_num(create_word_list(extract_tensor(pt_directory_CVL)))
 sorted_result_CVL = sorted(result_CVL.items(), key=lambda x: x[1], reverse=True)
+result_IAM = count_word_num(create_word_list(extract_tensor(pt_directory_IAM)))
+sorted_result_IAM = sorted(result_IAM.items(), key=lambda x: x[1], reverse=True)
 
-classified = 0
-threshold = 300
-for i in sorted_result_CVL[:threshold]:
-    classified += i[1]
-    print(i)
-others = 0
-for i in sorted_result_CVL[threshold:]:
-    others += i[1]
-print(('classified', classified))
-print(('others', others))
-print(f"total classes: {len(sorted_result_CVL)}")
+
+
+# classified = 0
+# threshold = 300
+# for i in sorted_result_CVL[:threshold]:
+#     classified += i[1]
+#     print(i)
+# others = 0
+# for i in sorted_result_CVL[threshold:]:
+#     others += i[1]
+# print(('classified', classified))
+# print(('others', others))
+# print(f"total classes: {len(sorted_result_CVL)}")
 
 # # 创建并写入CSV文件
 # with open('one_hot_map.csv', 'w', newline='', encoding='utf-8') as csvfile:
@@ -66,7 +70,35 @@ print(f"total classes: {len(sorted_result_CVL)}")
 #         writer.writerow(i)
 #     writer.writerow(('others',others))
 
-indexed_list = [(i+1, key, value) for i, (key, value) in enumerate(result_CVL.items())]
-total_word =  create_word_list(extract_tensor(pt_directory_CVL))
-for i in total_word:
-    i = 
+
+#将词频字典转换为列表并添加序号
+indexed_list_CVL = {key:(i+1) for i, (key, value) in enumerate(result_CVL.items())}
+indexed_list_IAM = {key:(i+1) for i, (key, value) in enumerate(result_IAM.items())}
+
+#代表CVL数据集中所有的单词
+total_word_CVL =  create_word_list(extract_tensor(pt_directory_CVL))
+total_word_IAM =  create_word_list(extract_tensor(pt_directory_IAM))
+
+#创建空的序号列表，用于作为SVM的类别
+total_indices_CVL = []
+total_indices_IAM = []
+
+#将total_word_CVL中所有的单词对应的序号填入序号列表
+for word in total_word_CVL:
+    if word in indexed_list_CVL:
+        total_indices_CVL.append(indexed_list_CVL[word])
+
+#将序号列表存为csv文件
+with open('CVL_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(total_indices_CVL)
+
+
+for word in total_word_IAM:
+    if word in indexed_list_IAM:
+        total_indices_IAM.append(indexed_list_IAM[word])
+
+#将序号列表存为csv文件
+with open('IAM_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(total_indices_IAM)

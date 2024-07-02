@@ -22,7 +22,6 @@ def convert_png_to_hog_tensor(png_directory, output_pt_file):
                                             cells_per_block=(2, 2), visualize=True, feature_vector=True)
             
             hog_features.append(feature_vector)  
-            print(f'Processed {png_file}')
 
     # 将 HOG 特征转换为张量
     hog_tensor = torch.tensor(hog_features)
@@ -32,10 +31,10 @@ def convert_png_to_hog_tensor(png_directory, output_pt_file):
     print(f'Successfully saved HOG features to {output_pt_file}')
 
 # 定义输入和输出目录
-png_directory_CVL = '/root/autodl-tmp/APS360_Project/Machine_Learning_Output/SVM/CVL_dataset_png'
-output_pt_file_CVL = '/root/autodl-tmp/APS360_Project/Machine_Learning_Output/SVM/CVL_HOG_pt'
-png_directory_IAM = '/root/autodl-tmp/APS360_Project/Machine_Learning_Output/SVM/IAM_dataset_png'
-output_pt_file_IAM = '/root/autodl-tmp/APS360_Project/Machine_Learning_Output/SVM/IAM_HOG_pt'
+png_directory_CVL = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/CVL_dataset_png'
+output_pt_file_CVL = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/CVL_HOG_pt'
+png_directory_IAM = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/IAM_dataset_png'
+output_pt_file_IAM = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/IAM_HOG_pt'
 
 
 # 执行转换

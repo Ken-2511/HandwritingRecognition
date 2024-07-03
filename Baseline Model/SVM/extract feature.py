@@ -19,14 +19,35 @@ def convert_png_to_hog_tensor(png_directory, output_pt_file):
             
             # 提取 HOG 特征
             feature_vector, hog_image = hog(gray_image, pixels_per_cell=(8, 8),
-                                            cells_per_block=(2, 2), visualize=True, feature_vector=True)
+                                            cells_per_block=(2, 2), visualize=False, feature_vector=True)
             
             hog_features.append(feature_vector)  
 
     # 将 HOG 特征转换为张量
     hog_tensor = torch.tensor(hog_features)
     print(hog_tensor.shape)
+
+import csv
+import numpy as np
+
+# CSV文件路径
+csv_file_path = '/root/autodl-tmp/CVL_indices.csv'
+
+# 初始化一个空列表，用于存储CSV文件中的每一行
+label_list_CVL = []
+
+# 打开CSV文件
+with open(csv_file_path, newline='') as csvfile:
+    # 创建一个csv阅读器
+    reader = csv.reader(csvfile)
     
+    # 遍历csv阅读器中的每行
+    for row in reader:
+        # 将每行的数据添加到列表中
+        label_list_CVL.append(row)  
+y_CVL = np.array(label_list_CVL).reshape(-1,1)
+print(y_CVL.shape )
+
     # 保存张量为 .pt 文件
     # torch.save(hog_tensor, output_pt_file)
     # print(f'Successfully saved HOG features to {output_pt_file}')

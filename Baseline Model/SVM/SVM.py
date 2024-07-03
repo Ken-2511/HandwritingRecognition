@@ -12,15 +12,20 @@ import os
 import torch
 import csv
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor,as_completed
+import time
+
 
 # CSV文件路径
-csv_file_path = '/root/autodl-tmp/CVL_indices.csv'
+csv_CVL_path = '/root/autodl-tmp/CVL_indices.csv'
+csv_IAM_path = '/root/autodl-tmp/IAM_indices.csv'
 
 # 初始化一个空列表，用于存储CSV文件中的每一行
 label_list_CVL = []
+#label_list_IAM = []
 
 # 打开CSV文件
-with open(csv_file_path, newline='') as csvfile:
+with open(csv_CVL_path, newline='') as csvfile:
     # 创建一个csv阅读器
     reader = csv.reader(csvfile)
     
@@ -30,26 +35,53 @@ with open(csv_file_path, newline='') as csvfile:
         label_list_CVL.append(row)
 y_CVL = np.array(label_list_CVL).reshape(-1,1)
 
+# with open(csv_IAM_path, newline='') as csvfile:
+#     # 创建一个csv阅读器
+#     reader = csv.reader(csvfile)
+    
+#     # 遍历csv阅读器中的每行
+#     for row in reader:
+#         # 将每行的数据添加到列表中
+#         label_list_CVL.append(row)
+# y_IAM = np.array(label_list_CVL).reshape(-1,1)
+def process_image(png_path):
+    try:
+        image = io.imread(png_path)
+        gray_image = rgb2gray(image)
+        feature_vector = hog(
+            gray_image, pixels_per_cell=(8, 8), cells_per_block=(2, 2), 
+            visualize=False, feature_vector=True
+        )
+        return feature_vector
+    except Exception as e:
+        print(f'Error processing {png_path}: {e}')
+        return None
+
 def convert_png_to_hog_tensor(png_directory):
-    hog_features = []
-
-    # 遍历 .png 文件
-    for png_file in os.listdir(png_directory):
-        if png_file.endswith('.png'):
-            png_path = os.path.join(png_directory, png_file)
-            image = io.imread(png_path)
-            
-            # 将图像转换为灰度图像
-            gray_image = rgb2gray(image)
-            
-            # 提取 HOG 特征
-            feature_vector, hog_image = hog(gray_image, pixels_per_cell=(8, 8),
-                                            cells_per_block=(2, 2), visualize=True, feature_vector=True)
-            
-            hog_features.append(feature_vector)  
-
-    # 将 HOG 特征转换为张量
-    hog_tensor = torch.tensor(hog_features)
+    png_files = [os.path.join(png_directory, file) for file in os.listdir(png_directory) if file.endswith('.png')]
+    
+    # 创建一个空列表来收集特征向量
+    hog_features_list = []
+    
+    # 使用 ThreadPoolExecutor 并行处理图像
+    with ThreadPoolExecutor() as executor:
+        futures = {executor.submit(process_image, file): file for file in png_files}
+        for future in as_completed(futures):
+            file = futures[future]
+            try:
+                feature_vector = future.result()
+                if feature_vector is not None:
+                    hog_features_list.append(feature_vector)  # 收集特征向量
+            except Exception as e:
+                print(f'{file} generated an exception: {e}')
+    
+    # 将特征向量列表转换为 NumPy 数组
+    hog_features_array = np.array(hog_features_list)
+    
+    # 将 NumPy 数组转换为张量
+    hog_tensor = torch.tensor(hog_features_array)  # 使用 torch.tensor 转换
+    print('finish converting')
+    
     return hog_tensor
 
 # 加载数据集
@@ -60,7 +92,7 @@ pt_directory_IAM = '/root/autodl-tmp/APS360_Project/Baseline Model/SVM/IAM_datas
 X_CVL = convert_png_to_hog_tensor(pt_directory_CVL)
 #X_IAM = convert_png_to_hog_tensor(pt_directory_IAM)
 
-# y_IAM = []
+#y_IAM = []
 
 
 # 划分训练集和测试集

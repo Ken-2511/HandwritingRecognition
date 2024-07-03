@@ -21,6 +21,8 @@ class SegDataset(Dataset):
             raise ValueError('Invalid dataset name')
         if mode not in ['train', 'val', 'test']:
             raise ValueError('Invalid mode')
+        self.name = name
+        self.mode = mode
         self.data = torch.load(os.path.join(self.path, 'seg_data_' + mode + '.pt'))
         self.label = torch.load(os.path.join(self.path, 'seg_label_' + mode + '.pt'))
         self.length = len(self.data)
@@ -48,6 +50,8 @@ class RecDataset(Dataset):
             raise ValueError('Invalid dataset name')
         if mode not in ['train', 'val', 'test']:
             raise ValueError('Invalid mode')
+        self.name = name
+        self.mode = mode
         self.data = torch.load(os.path.join(self.path, 'rec_data_' + mode + '.pt'))
         self.label = torch.load(os.path.join(self.path, 'rec_label_' + mode + '.pt'))
         self.length = len(self.data)

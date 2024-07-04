@@ -26,7 +26,7 @@ Progress report:
 6. Individual Contribution and Responsibilities
     (1) Gantt chart -> Ken
     (2) Description -> Lou
-7. Data Processing Description -> Richard
+7. Data Processing Description -> Richard.
 8. Baseline model Description -> Roger & Lou
 9. Primary Model Description -> Ken
 

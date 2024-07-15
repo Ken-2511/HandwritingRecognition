@@ -37,3 +37,26 @@ Lou：把框选出的单词单独保存出来
 任务进程：
 7/3 -> 确保所有代码必须解决，开始 progress report 晚上准备开会汇报一下进度
 7/4 -> progress report 必须写完初稿晚上开会开始editing
+
+7 / 13: deadline (all) -> 7/23
+Primary Model: -> Ken
+1. 调试Faster-RCNN (loss 偏高)
+2. 微调CRNN (loss 偏高)： 调整 hidden unit 的complexity
+
+修改生成图片的代码：
+1. 调试 Data_Augmentation -> Richard
+
+Baseline Model:
+1. Baseline Model (Lou & Roger): 
+写一个函数：
+1. 连接两个Baseline Model
+2. 输入一个段落图片，输出一个识别出来的段落
+
+微调baseline model：-> Lou
+Binary pixel detection (Lou): 
+1. 把每个单词图片框出来生成单一图片 [done]
+
+SVM (Roger): -> Roger
+1. 让模型可以输出对应单词作为结果
+
+整合所有函数和代码 -> Ken

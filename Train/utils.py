@@ -105,3 +105,13 @@ def collate_fn(batch):
     # 不尝试合并 targets，因为它们包含不同数量的边界框
     # 直接作为列表返回
     return images, targets
+
+
+if __name__ == '__main__':
+    from torch.utils.data import DataLoader
+    dataset = SegDataset('IAM', 'train')
+    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
+    for data, label in dataloader:
+        print(data.shape)
+        print(label.shape)
+        break

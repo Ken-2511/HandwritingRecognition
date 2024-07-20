@@ -41,7 +41,7 @@ Lou：把框选出的单词单独保存出来
 7 / 13: deadline (all) -> 7/23
 Primary Model: -> Ken
 1. 调试Faster-RCNN (loss 偏高)
-2. 微调CRNN (loss 偏高)： 调整 hidden unit 的complexity
+2. 微调CRNN (loss 偏高)： 调整 hidden unit 的 complexity
 
 修改生成图片的代码：
 1. 调试 Data_Augmentation -> Richard
@@ -56,7 +56,31 @@ Baseline Model:
 Binary pixel detection (Lou): 
 1. 把每个单词图片框出来生成单一图片 [done]
 
-SVM (Roger): -> Roger
+SVM (Roger): -> Roger 
 1. 让模型可以输出对应单词作为结果
 
 整合所有函数和代码 -> Ken
+
+
+7 / 20：
+Lou:
+1. 对于每一个段落图片单独创立子文件夹
+2. 改成白底黑字
+3. 去掉红色的框
+4. Baseline Model 启用函数
+
+Ken:
+1. 调整faster-RCNN
+2. 预训练LSTM部分
+3. 整合所有函数和代码
+
+Richard:
+1. 写 2 个新的dataset
+2. 用新的dataset训练CRNN
+
+
+
+
+
+
+

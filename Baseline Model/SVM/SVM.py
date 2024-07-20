@@ -160,14 +160,21 @@ def evaluate(y_test,y_pred):
 print(evaluate(y_CVL_test,y_pred_CVL))
 
 
-# # 假设 input_features 是一个 2D 数组，包含一行特征向量
-# input_features = [[6.3, 3.3, 6.0, 2.5]]
-# # 使用训练好的 SVM 模型进行预测
-# predicted_class = svm_CVL.predict(input_features)
+def predict_word():
+    # 输入图片路径
+    input_image_path = input('the image path is ',)
+    image = io.imread(input_image_path)
+                
+    # 将图像转换为灰度图像
+    gray_image = rgb2gray(image)
+            
+    # 提取 HOG 特征
+    feature_vector = hog(gray_image, pixels_per_cell=(8, 8),cells_per_block=(2, 2), visualize=False, feature_vector=True)
 
-# # 输出预测结果
-# print("Predicted class:", predicted_class)
+    # 使用训练好的 SVM 模型进行预测
+    predicted_class = svm_CVL.predict(feature_vector)
 
-
+    # 输出预测结果
+    print("Predicted class:", predicted_class)
 
 

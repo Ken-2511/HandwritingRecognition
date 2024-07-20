@@ -107,11 +107,42 @@ def collate_fn(batch):
     return images, targets
 
 
+class SegDatasetNew(Dataset):
+    def __init__(self, name, mode):
+        super(SegDatasetNew, self).__init__()
+        IAM_path = "/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed"
+        CVL_path = "/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed"
+        if name == 'IAM':
+            self.path = IAM_path
+        elif name == 'CVL':
+            self.path = CVL_path
+        else:
+            raise ValueError("Invalid dataset name")
+        self.name = name
+        self.mode = mode
+        self.data = torch.load(f"{self.path}/seg_data_{mode}.pt", weights_only=True)
+        self.target = torch.load(f"{self.path}/seg_label_{mode}_new.pt", weights_only=False)
+        self.length = len(self.data)
+    
+    def __len__(self):
+        return self.length
+    
+    def __getitem__(self, idx):
+        # make sure that the image is in 0-1 range
+        image = self.data[idx]
+        image -= image.min()
+        image /= image.max()
+        target = self.target['boxes'][idx]
+        labels = self.target['labels'][idx]
+        return image, {'boxes': target, 'labels': labels}
+
+
 if __name__ == '__main__':
-    from torch.utils.data import DataLoader
-    dataset = SegDataset('IAM', 'train')
-    dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
-    for data, label in dataloader:
-        print(data.shape)
-        print(label.shape)
+    dataset = SegDatasetNew('IAM', 'train')
+    dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
+    for i, data in enumerate(dataloader):
+        image, target = data
+        # image, target = image[0], target[0]
+        # boxes, labels = target
         break
+    print(target)

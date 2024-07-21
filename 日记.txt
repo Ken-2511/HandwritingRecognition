@@ -144,3 +144,21 @@ ken:
 两分钟就可以学会tensorboard，不学一下吗？？
 ###
 如果你们想看看的话，可以在autoDL的网页上点击`autopanel`，然后点击`tensorboard`，然后就可以看到训练过程了
+
+
+7.21
+
+ken:
+Faster R-CNN
+添加了负样本，负样本为随机的背景框框
+在大约6k steps的时候添加了learning rate scheduler，类似cosine的函数，使得模型能够不断跳出局部最优解
+在大约19.5k steps的时候改变了anchor generator的大小，使其“更适合”我们的数据集
+
+CRNN
+将lstm的layers从1改成2，并且从单向改成双向
+添加了learning rate scheduler，从头训练
+在epoch 10的时候在训练集里添加了transforms，使得模型能够更好地泛化
+
+lou:
+把会上决定要做的任务做完了，除了把我的部分和svm接起来
+P.S. 最后处理出来的图也太逆天了， 这放到模型里能有 20% 准确率都能开香槟了

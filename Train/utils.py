@@ -36,10 +36,11 @@ class SegDataset(Dataset):
 
 
 class RecDataset(Dataset):
-    def __init__(self, name, mode):
+    def __init__(self, name, mode, transform=None):
         """
         name: name of the dataset, IAM or CVL
         mode: train, val or test
+        transform: default None, if not None, it should be a function
         """
         CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
         IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
@@ -53,6 +54,9 @@ class RecDataset(Dataset):
             raise ValueError('Invalid mode')
         self.name = name
         self.mode = mode
+        if transform is None:
+            self.transform = transforms.Normalize(mean=(0.5), std=(0.5))
+        self.transform = transform
         self.data = torch.load(os.path.join(self.path, 'rec_data_' + mode + '.pt'))
         self.label = torch.load(os.path.join(self.path, 'rec_label_' + mode + '.pt'))
         self.length = len(self.data)
@@ -61,7 +65,10 @@ class RecDataset(Dataset):
         return self.length
     
     def __getitem__(self, idx):
-        return self.data[idx], self.label[idx]
+        data = self.data[idx]
+        if self.transform:
+            data = self.transform(data)
+        return data, self.label[idx]
 
 
 class ModifiedDataset(torch.utils.data.Dataset):
@@ -137,12 +144,26 @@ class SegDatasetNew(Dataset):
         return image, {'boxes': target, 'labels': labels}
 
 
+class CRNN_Accuracy:
+    def __init__(self):
+        self.correct = 0
+        self.total = 0
+    
+    def update(self, pred, target, is_original):
+        if is_original:
+            pred = pred.argmax(dim=-1)
+        correct = (pred == target).sum().item()
+        total = len(target)
+        self.correct += correct
+        self.total += total
+    
+    def get_accuracy(self):
+        return self.correct / self.total
+
+
 if __name__ == '__main__':
-    dataset = SegDatasetNew('IAM', 'train')
-    dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
-    for i, data in enumerate(dataloader):
-        image, target = data
-        # image, target = image[0], target[0]
-        # boxes, labels = target
+    dataset = RecDataset('IAM', 'train')
+    dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
+    for i, (data, label) in enumerate(dataloader):
+        print(data.min(), data.mean, data.max())
         break
-    print(target)

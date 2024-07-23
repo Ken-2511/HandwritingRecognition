@@ -49,7 +49,7 @@ y_CVL = np.array(label_list_check).reshape(-1,1)
 def convert_png_to_hog_tensor(png_directory):
     hog_features = []
     count = 0
-    limit = 20000
+    limit = 10000
 
     # 遍历 .png 文件
     for png_file in os.listdir(png_directory):

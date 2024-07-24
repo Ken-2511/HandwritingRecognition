@@ -101,7 +101,7 @@ csv_file = 'word_map.csv'
 # 打开文件用于写入
 with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
     # 创建 csv.DictWriter 对象
-    field_names = ['Index', 'Key']  # 定义字段名
+    field_names = ['Index', 'Value']  # 定义字段名
     writer = csv.DictWriter(file, fieldnames=field_names)
     
     # 写入列名（标题）
@@ -109,7 +109,7 @@ with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
     
     # 遍历word_map字典，并写入每一行
     for index, key in word_map.items():
-        writer.writerow({'Index': index, 'Key': key})
+        writer.writerow({'Index': index, 'Value': key})
 
 print(f"数据已写入 {csv_file}")
 

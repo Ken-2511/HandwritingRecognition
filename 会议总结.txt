@@ -66,7 +66,7 @@ SVM (Roger): -> Roger
 Lou:
 1. 对于每一个段落图片单独创立子文件夹 [done]
 2. 改成白底黑字 [done]
-3. 去掉红(蓝)色的框
+3. 去掉红(蓝)色的框 [done]
 4. Baseline Model 启用函数
 
 Ken:

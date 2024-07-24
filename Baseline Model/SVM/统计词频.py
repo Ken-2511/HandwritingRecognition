@@ -83,17 +83,35 @@ total_word_IAM =  create_word_list(extract_tensor(pt_directory_IAM))
 total_indices_CVL = []
 total_indices_IAM = []
 
-print(indexed_list_CVL)
-# #将total_word_CVL中所有的单词对应的序号填入序号列表
-# for word in total_word_CVL[:10000]:
-#     if word in indexed_list_CVL:
-#         total_indices_CVL.append(indexed_list_CVL[word])
-# print(total_indices_CVL)
+word_map = {i+1: key for i, key in enumerate(result_CVL)}
 
-# #将序号列表存为csv文件
-# with open('CVL_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
-#     writer = csv.writer(csvfile)
-#     writer.writerow(total_indices_CVL)
+#将total_word_CVL中所有的单词对应的序号填入序号列表
+for word in total_word_CVL[:10000]:
+    if word in indexed_list_CVL:
+        total_indices_CVL.append(indexed_list_CVL[word])
+
+
+#将序号列表存为csv文件
+with open('CVL_indices.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(total_indices_CVL)
+
+csv_file = 'word_map.csv'
+
+# 打开文件用于写入
+with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
+    # 创建 csv.DictWriter 对象
+    field_names = ['Index', 'Key']  # 定义字段名
+    writer = csv.DictWriter(file, fieldnames=field_names)
+    
+    # 写入列名（标题）
+    writer.writeheader()
+    
+    # 遍历word_map字典，并写入每一行
+    for index, key in word_map.items():
+        writer.writerow({'Index': index, 'Key': key})
+
+print(f"数据已写入 {csv_file}")
 
 
 # for word in total_word_IAM:

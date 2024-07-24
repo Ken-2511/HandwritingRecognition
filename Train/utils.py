@@ -54,10 +54,7 @@ class RecDataset(Dataset):
             raise ValueError('Invalid mode')
         self.name = name
         self.mode = mode
-        if transform is None:
-            self.transform = transforms.Normalize(mean=(0.5), std=(0.5))
-        else:
-            self.transform = transform
+        self.transform = transform
         self.data = torch.load(os.path.join(self.path, 'rec_data_' + mode + '.pt'))
         self.label = torch.load(os.path.join(self.path, 'rec_label_' + mode + '.pt'))
         self.length = len(self.data)
@@ -67,7 +64,12 @@ class RecDataset(Dataset):
     
     def __getitem__(self, idx):
         data = self.data[idx]
-        data = self.transform(data)
+        if self.transform:
+            data = self.transform(data)
+        data -= data.min()
+        data /= data.max() / 2
+        data -= 1
+        data = -data
         return data, self.label[idx]
 
 

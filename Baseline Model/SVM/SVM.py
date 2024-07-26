@@ -194,3 +194,4 @@ def predict_word():
     print("Predicted class:", word_map[predicted_class])
 
 
+predict_word()

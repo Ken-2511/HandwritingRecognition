@@ -139,6 +139,8 @@ class RecDataset(Dataset):
         data = self.data[idx]
         if self.transform:
             data = self.transform(data)
+        img = data
+        print(img.min().item(), img.max().item(), img.mean().item(), img.std().item())
         data -= data.min()
         data /= data.max() / 2
         data -= 1
@@ -174,7 +176,7 @@ class RecDataset_Augmentation(Dataset):
             self.data = self._convert_to_tensor(self.data)
         
         if isinstance(self.label, list):
-            self.label = torch.tensor(self.label)
+            self.label = self._convert_labels_to_tensor(self.label)
         
         self.length = len(self.data)
         self.transform = transform
@@ -184,11 +186,19 @@ class RecDataset_Augmentation(Dataset):
             return torch.stack([self._convert_to_tensor(item) for item in data])
         return torch.tensor(data)
     
+    def _convert_labels_to_tensor(self, labels):
+        flat_labels = [word for sublist in labels for word in sublist]
+        unique_labels = sorted(set(flat_labels))
+        self.label_to_index = {label: i for i, label in enumerate(unique_labels)}
+        index_labels = [[self.label_to_index[word] for word in line] for line in labels]
+        return torch.tensor(index_labels)
+
     def __len__(self):
         return self.length
+    
     def __getitem__(self, index):
-        return self.transform(self.data[index]), self.label[index]
-
+        data = self.data[index]
+        label = self.label
 
 # if __name__ == '__main__':
 #     dataset = RecDataset('IAM', 'train')

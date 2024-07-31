@@ -6,35 +6,36 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
 
-# 没用，不要看
+class SegDataset(Dataset):
+    def __init__(self, name, mode):
+        """
+        name: name of the dataset, IAM or CVL
+        mode: train, val or test
+        """
+        CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
+        IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
+        if name == 'IAM':
+            self.path = IAM_path
+        elif name == 'CVL':
+            self.path = CVL_path
+        else:
+            raise ValueError('Invalid dataset name')
+        if mode not in ['train', 'val', 'test']:
+            raise ValueError('Invalid mode')
+        self.name = name
+        self.mode = mode
+        self.data = torch.load(os.path.join(self.path, 'seg_data_' + mode + '.pt'), weights_only=True)
+        self.label = torch.load(os.path.join(self.path, 'seg_label_' + mode + '.pt'), weights_only=True)
+        self.length = len(self.data)
+    
+    def __len__(self):
+        return self.length
+    
+    def __getitem__(self, idx):
+        return self.data[idx], self.label[idx]
 
-# class SegDataset(Dataset):
-#     def __init__(self, name, mode):
-#         """
-#         name: name of the dataset, IAM or CVL
-#         mode: train, val or test
-#         """
-#         CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
-#         IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
-#         if name == 'IAM':
-#             self.path = IAM_path
-#         elif name == 'CVL':
-#             self.path = CVL_path
-#         else:
-#             raise ValueError('Invalid dataset name')
-#         if mode not in ['train', 'val', 'test']:
-#             raise ValueError('Invalid mode')
-#         self.name = name
-#         self.mode = mode
-#         self.data = torch.load(os.path.join(self.path, 'seg_data_' + mode + '.pt'), weights_only=True)
-#         self.label = torch.load(os.path.join(self.path, 'seg_label_' + mode + '.pt'), weights_only=True)
-#         self.length = len(self.data)
-    
-#     def __len__(self):
-#         return self.length
-    
-#     def __getitem__(self, idx):
-#         return self.data[idx], self.label[idx]
+
+# 没用，不要看
 
 # class ModifiedDataset(torch.utils.data.Dataset):
 #     def __init__(self, dataset):

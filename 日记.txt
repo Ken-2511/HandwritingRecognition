@@ -182,3 +182,11 @@ ken:
 改用heuristic方法，在当前的数据集下准确率很高，但面对其他数据的时候估计表现不好，因此需要优化
 改了CRNN的训练代码，让代码变清晰易懂
 新建了可视化CRNN的notebook，便于观察模型的性能
+
+7.31
+
+ken:
+主要改写了segmentation的代码，现在基本上把heuristic方法的代码写完了
+另外也整合了heuristic代码和CRNN代码，现在可以直接识别一整张图片了。
+成果在 Train/Segmentation.ipynb 里面
+额 richard 的代码还没看

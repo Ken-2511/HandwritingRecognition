@@ -201,7 +201,7 @@ class RecDataset_Augmentation(Dataset):
     
     def __getitem__(self, index):
         data = self.data[index]
-        label = self.label
+        label = self.label[index]
 
 # if __name__ == '__main__':
 #     dataset = RecDataset('IAM', 'train')
@@ -216,7 +216,7 @@ if __name__ == '__main__':
     dataset = RecDataset_Augmentation('Data_Augmentation', 'train', transform=None)
     dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
     for i, (data,label) in enumerate(dataloader):
-        print(data.min(), data.mean(), data.max())
+        print(data.min(), data.mean, data.max())
         print(data.shape)
         print(label.shape)
         break

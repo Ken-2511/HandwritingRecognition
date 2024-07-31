@@ -202,6 +202,7 @@ class RecDataset_Augmentation(Dataset):
     def __getitem__(self, index):
         data = self.data[index]
         label = self.label[index]
+        return data, label
 
 # if __name__ == '__main__':
 #     dataset = RecDataset('IAM', 'train')
@@ -214,9 +215,12 @@ class RecDataset_Augmentation(Dataset):
 
 if __name__ == '__main__':
     dataset = RecDataset_Augmentation('Data_Augmentation', 'train', transform=None)
-    dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
     for i, (data,label) in enumerate(dataloader):
         print(data.min(), data.mean, data.max())
         print(data.shape)
         print(label.shape)
         break
+
+torch.set_printoptions(linewidth=200, precision=4, edgeitems=200, sci_mode=False)
+print(label)

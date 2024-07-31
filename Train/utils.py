@@ -140,11 +140,13 @@ class RecDataset(Dataset):
         if self.transform:
             data = self.transform(data)
         img = data
-        print(img.min().item(), img.max().item(), img.mean().item(), img.std().item())
+        # print(img.min().item(), img.max().item(), img.mean().item(), img.std().item())
         data -= data.min()
         data /= data.max() / 2
         data -= 1
-        data = -data
+        if self.transform:
+            # 如果有transform，那么就是将图片转成了PIL格式又转了回来，这时候黑白就会颠倒。所以要再转回来
+            data = -data
         return data, self.label[idx]
 
 

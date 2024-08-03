@@ -16,7 +16,7 @@ class CRNN(nn.Module):
     这是一个基于CNN和LSTM的CRNN模型，用于生成文本
 
     """
-    def __init__(self, num_classes=128, hidden_dim=1024, io_dim=1024, num_layers=4, bidirectional=True, device='cuda:0'):
+    def __init__(self, num_classes=128, hidden_dim=1024, io_dim=1024, num_layers=4, bidirectional=True, device='cuda:0', num_beams=20):
         """
         args:
             num_classes: ...
@@ -25,10 +25,12 @@ class CRNN(nn.Module):
             num_layers: int, the number of layers of the LSTM
             bidirectional: bool, whether to use bidirectional LSTM
             device: str, the device
+            num_beams: int, the number of beams used in beam search
         """
         super(CRNN, self).__init__()
         self.direction_factor = 2 if bidirectional else 1
         self.num_layers = num_layers
+        self.num_beams = num_beams
         # num-classes对应ascii码表的128种字符
         self.num_classes = num_classes
         # hidden_dim是LSTM的隐藏层（hidden state）和细胞状态（cell state）的维度
@@ -100,7 +102,7 @@ class CRNN(nn.Module):
     
     def forward_beam(self, img):
         # 使用束搜索，生成最可能的文本
-        num_beams = 11
+        num_beams = self.num_beams
         batch_size = img.size(0)
         h0, c0 = self.init_state(img)
         x = 2  # the index of the start token
@@ -190,17 +192,35 @@ class CRNN(nn.Module):
             
         return output, probabilities
     
-    def to_words(self, batch_beam_output):
+    def beam_output_to_words(self, output):
         # 将模型输出的字符概率分布转换为文本
-        batch_size = batch_beam_output.size(0)
-        batch_beam_output = batch_beam_output.argmax(dim=-1)
-        batch_beam_output = batch_beam_output.cpu().numpy()
+        batch_size = output.size(0)
+        output = output.argmax(dim=-1)
+        output = output.cpu().numpy()
+        word_beams = []
+        for i in range(batch_size):
+            words = []
+            for j in range(self.num_beams):
+                word = ''
+                for k in range(1, self.max_len):
+                    if output[i, j, k] == 3:
+                        break
+                    word += chr(output[i, j, k])
+                words.append(word)
+            word_beams.append(words)
+        return word_beams
+    
+    def output_to_words(self, output):
+        # 将模型输出的字符概率分布转换为文本
+        batch_size = output.size(0)
+        output = output.argmax(dim=-1)
+        output = output.cpu().numpy()
         words = []
         for i in range(batch_size):
             word = ''
             for j in range(1, self.max_len):
-                if batch_beam_output[i, 0, j] == 3:
+                if output[i, j] == 3:
                     break
-                word += chr(batch_beam_output[i, 0, j])
+                word += chr(output[i, j])
             words.append(word)
         return words

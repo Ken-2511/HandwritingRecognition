@@ -12,8 +12,8 @@ class SegDataset(Dataset):
         name: name of the dataset, IAM or CVL
         mode: train, val or test
         """
-        CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
-        IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
+        CVL_path = '../Datasets/CVL_Processed'
+        IAM_path = '../Datasets/IAM_Processed'
         if name == 'IAM':
             self.path = IAM_path
         elif name == 'CVL':
@@ -116,8 +116,8 @@ class RecDataset(Dataset):
         mode: train, val or test
         transform: default None, if not None, it should be a function
         """
-        CVL_path = '/root/autodl-tmp/APS360_Project/Datasets/CVL_Processed'
-        IAM_path = '/root/autodl-tmp/APS360_Project/Datasets/IAM_Processed'
+        CVL_path = '../Datasets/CVL_Processed'
+        IAM_path = '../Datasets/IAM_Processed'
         if name == 'IAM':
             self.path = IAM_path
         elif name == 'CVL':

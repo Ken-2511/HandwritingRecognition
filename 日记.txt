@@ -190,3 +190,9 @@ ken:
 另外也整合了heuristic代码和CRNN代码，现在可以直接识别一整张图片了。
 成果在 Train/Segmentation.ipynb 里面
 额 richard 的代码还没看
+
+
+8.4
+
+ken:
+今天写了GUI的代码，方便展示。但是只能在本地跑，因为服务器上没有显示器

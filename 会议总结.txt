@@ -79,27 +79,34 @@ Richard:
 2. 用新的dataset训练CRNN
 
 8 / 1:
-1. Final report (group):  Deadline: 8 -> 7
+1. Final report (group):  Deadline: 8 / 7
 Introduction -> Lou
+
 Illustration & Figure -> Lou
-Backgound & Related word -> Lou
-Data Processing -> Lou
-Architecture -> Lou
-Baseline Model -> Lou
+
+Backgound & Related word -> Roger
+
+Data Processing -> Richard [done]
+
+Architecture -> Ken
+
+Baseline Model -> Lou / Roger 
+-> Test the models
 
 Quantitive / Qualitative Result -> Ken / Lou / Roger
 
 Evaluate model on new data -> Roger
+-> 手写两个工整的paragraphs，不要太长 - 进行测试
 
-Discussion -> Roger
+Discussion -> Ken
 
-Ethical Consideration -> Lou
+Ethical Consideration -> Richard
 
 Project Difficulty / Quality -> Richard / Ken
 
 2. Individual Report: Deadline -> 8 / 9
 
-3. Final Presentation: Deadline -> 8 /15
+3. Final Presentation: Deadline -> 8 / 15
 
 
 

@@ -1,7 +1,6 @@
 # This program is a demo of how to use our model
 
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import cv2

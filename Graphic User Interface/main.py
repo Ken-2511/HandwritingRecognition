@@ -1,15 +1,15 @@
 # This program is a demo of how to use our model
 
 import tkinter as tk
-from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
 from PIL import Image, ImageTk
 
+
 def open_file():
     file_path = filedialog.askopenfilename(
         title='Open a file',
-        filetypes=[('Image files', '*.png *.jpg *.jpeg'),]
+        filetypes=[('Image files', '*.png *.jpg *.jpeg'), ]
     )
     if file_path:
         image = Image.open(file_path)
@@ -19,23 +19,30 @@ def open_file():
         label.config(image=photo)
         label.image = photo
 
+
 def set_parameters():
     pass
+
 
 def predict():
     pass
 
-# Create the main window
+
+# create the main window
 root = tk.Tk()
 root.title('GUI Example')
 root.geometry('600x400')
 
 # create a label to display the image
-label = ttk.Label(root)
+label = tk.Label(root, width=100, height=100)
 label.grid(row=0, column=0, rowspan=4)
 
-# Create a button
-button = ttk.Button(root, text='Open File', command=open_file)
-button.grid(row=0, column=1)
+# create a control panel
+control_frame = tk.Frame(root)
+control_frame.grid(row=0, column=1, sticky='nw')
+
+# create a button
+button = tk.Button(control_frame, text='Open File', command=open_file)
+button.grid(row=0, column=0)
 
 root.mainloop()

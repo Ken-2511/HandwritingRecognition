@@ -84,13 +84,13 @@ Introduction -> Lou
 
 Illustration & Figure -> Lou
 
-Backgound & Related word -> Roger
+Backgound & Related work -> Roger
 
 Data Processing -> Richard [done]
 
 Architecture -> Ken
 
-Baseline Model -> Lou / Roger 
+Baseline Model -> Roger 
 -> Test the models
 
 Quantitive / Qualitative Result -> Ken / Lou / Roger

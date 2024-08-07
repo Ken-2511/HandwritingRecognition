@@ -185,13 +185,16 @@ def predict_word():
     gray_image = rgb2gray(image)
             
     # 提取 HOG 特征
-    feature_vector = hog(gray_image, pixels_per_cell=(8, 8),cells_per_block=(2, 2), visualize=False, feature_vector=True)
+    hog_vector = hog(gray_image, pixels_per_cell=(8, 8),cells_per_block=(2, 2), visualize=False, feature_vector=True)
+    feature_vector = hog_vector.reshape(1,-1)
 
     # 使用训练好的 SVM 模型进行预测
     predicted_class = svm_CVL.predict(feature_vector)
 
     # 输出预测结果
-    print("Predicted class:", word_map[predicted_class])
+    print(predicted_class)
+    print("Predicted class:", word_map[int(predicted_class[0])])
+
 
 
 predict_word()

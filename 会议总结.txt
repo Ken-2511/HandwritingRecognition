@@ -109,7 +109,37 @@ Project Difficulty / Quality -> Richard / Ken
 3. Final Presentation: Deadline -> 8 / 15
 
 
+8 / 9: Final Presentation Video Distribution
 
+- Problem (Lou) 30s
+    -> What is the problem that we are solving?
+    -> Why it's important?
 
+- Data Processing: (CVL & IAM ; Data Augmentation) -> (Lou & Richard) 1min45s
+    -> How we process and effect on process on amount, type and Quality
+    -> Explain how the data will be used
+    -> Why processing in this way
+    -> Any limitation of our processing
+    -> Direct
 
+- Model: (Ken) 1min
+    -> A clear picture of the model
+    -> 别说废话,不要有太多字在PPT上
+    -> Clearly explain the model's structure (how you design the model, the choice of hyperparameters)
 
+- Results: (Richard & Roger) 
+    Roger: 45s
+    -> Explain the quantitative measurements clearly
+    -> Why choosing these measurements
+    -> Illustration of the quantitative result
+
+    Richard: 30s
+    -> Illustrationof of the qualitative result
+    -> Why choosing this qualitative result
+
+- Discussion:
+    -> Conclusion of raw data (???) -> Lou 30s
+    -> Conclusion of qualitative and quantitative result -> Roger 30s 
+    -> Conclusion of model performance (successful or unsuccessful) -> Ken 30s
+
+- Demonstration (Ken) 40s

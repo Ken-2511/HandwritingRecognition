@@ -167,7 +167,7 @@ def find_min_rectangle(all_same_group, bias=1):
 class Row:
     def __init__(self, rect, avg_height):
         self.avg_height = avg_height
-        self.threshold = avg_height * 1.5
+        self.threshold = avg_height * 0.8
         self.y_mean = (rect[1] + rect[3]) / 2
         self.rectangles = []
         self.words = None
@@ -208,21 +208,21 @@ def sort_rectangles(rectangles):
             rows.append(Row(rect, avg_height))
             rows[-1].add_rectangle(rect)
 
-    # 如果一行之中，有一个rect刚好在另一个rect的上面/下面，那么就合并
-    for row in rows:
-        for i in range(len(row.rectangles)):
-            for j in range(i + 1, len(row.rectangles)):
-                if row.rectangles[i] is None or row.rectangles[j] is None:
-                    continue
-                y1, x1, y2, x2 = row.rectangles[i]
-                y3, x3, y4, x4 = row.rectangles[j]
-                if x1 <= x3 and x2 >= x4:  # 此时第二个rect比较小
-                    row.rectangles[i] = (min(y1, y3), x1, max(y2, y4), x2)
-                    row.rectangles[j] = None
-                if x1 >= x3 and x2 <= x4:  # 此时第一个rect比较小
-                    row.rectangles[j] = (min(y1, y3), x3, max(y2, y4), x4)
-                    row.rectangles[i] = None
-        row.rectangles = [x for x in row.rectangles if x is not None]
+    # # 如果一行之中，有一个rect刚好在另一个rect的上面/下面，那么就合并
+    # for row in rows:
+    #     for i in range(len(row.rectangles)):
+    #         for j in range(i + 1, len(row.rectangles)):
+    #             if row.rectangles[i] is None or row.rectangles[j] is None:
+    #                 continue
+    #             y1, x1, y2, x2 = row.rectangles[i]
+    #             y3, x3, y4, x4 = row.rectangles[j]
+    #             if x1 <= x3 and x2 >= x4:  # 此时第二个rect比较小
+    #                 row.rectangles[i] = (min(y1, y3), x1, max(y2, y4), x2)
+    #                 row.rectangles[j] = None
+    #             if x1 >= x3 and x2 <= x4:  # 此时第一个rect比较小
+    #                 row.rectangles[j] = (min(y1, y3), x3, max(y2, y4), x4)
+    #                 row.rectangles[i] = None
+    #     row.rectangles = [x for x in row.rectangles if x is not None]
 
     rows = sorted(rows, key=lambda x: x.y_mean)
 

@@ -27,7 +27,7 @@ class TextImage:
 
     def calculate_lower_upper_bounds(self):
         sorted_img = np.sort(self.original_image.reshape(-1))
-        self.lower_bound = sorted_img[int(0.03 * len(sorted_img))].item()
+        self.lower_bound = sorted_img[int(0.01 * len(sorted_img))].item()
         self.upper_bound = sorted_img[int(0.1 * len(sorted_img))].item()
 
     def set_original_image(self, image):
@@ -218,12 +218,13 @@ def predict():
     original_img = torch.from_numpy(_image.original_image).float().unsqueeze(0)
     ans["original"] = original_img
     processed_img = _image.get_processed_image_tensor()
-    processed_img = processed_img[:, ::2, ::2]  # make the image smaller
+    # processed_img = processed_img[:, ::2, ::2]  # make the image smaller
     all_same_group = seg_utils.find_all_connected_pixels(processed_img)
     img = original_img.clone()
-    bias = _conv_iteration / 7
+    bias = _conv_iteration / 3
     rectangles = seg_utils.find_min_rectangle(all_same_group, bias)
-    rectangles = [[y1 * 2, x1 * 2, y2 * 2, x2 * 2] for x1, y1, x2, y2 in rectangles]
+    # rectangles = [[y1 * 2, x1 * 2, y2 * 2, x2 * 2] for x1, y1, x2, y2 in rectangles]
+    rectangles = [[y1, x1, y2, x2] for x1, y1, x2, y2 in rectangles]
     rectangles = [[round(x) for x in rect] for rect in rectangles]
     rectangles, rows = seg_utils.sort_rectangles(rectangles)
     ans["rectangles"] = rectangles
@@ -237,7 +238,8 @@ def predict():
             word_img = seg_utils.get_word_image(img, rect)
             batch.append(word_img)
         batch = torch.stack(batch).to("cuda:0")
-        output, probabilities = model.forward_beam(batch)
+        with torch.no_grad():
+            output, probabilities = model.forward_beam(batch)
         output = model.beam_output_to_words(output)
         output = [x[0] for x in output]
         row.add_words(output)

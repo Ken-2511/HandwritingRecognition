@@ -143,8 +143,10 @@ def update_conv_img():
     assert isinstance(_image, TextImage)
     image = _image.original_image.copy()
     image = torch.from_numpy(image).float().unsqueeze(0)
-    new_img = seg_utils.non_maximum_suppression(image, _image.lower_bound, _image.upper_bound,
-                                                _conv_iteration, _conv)
+    # new_img = seg_utils.non_maximum_suppression(image, _image.lower_bound, _image.upper_bound,
+                                                # _conv_iteration, _conv)
+    new_img = seg_utils.non_maximum_suppression(image, _image.lower_bound*1.5, _image.upper_bound,
+                                                _conv_iteration)
     new_img = new_img.squeeze(0).numpy() * 255
     new_img = new_img.astype(np.uint8)
     _image.set_processed_image(new_img)
